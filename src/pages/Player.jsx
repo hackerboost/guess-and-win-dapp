@@ -1,27 +1,37 @@
-import { useState } from 'react';
-import { useGame } from '../context/GameContext';
-import { Link } from 'react-router-dom';
-import './Player.css';
+import { useEffect, useState } from "react";
+import { useGame } from "../context/GameContext";
+import { Link } from "react-router-dom";
+import "./Player.css";
 
 const Player = () => {
-  const { gameActive, reward, guessResult, winner, makeGuess, resetGuessResult } = useGame();
-  const [guess, setGuess] = useState('');
+  const { gameActive, reward, guessResult, winner, makeGuess, initializeContract } = useGame();
+  const [guess, setGuess] = useState("");
+
+  useEffect(() => {
+    initializeContract();
+  }, []);
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const num = parseInt(guess);
-    
+
     if (!isNaN(num) && num > 0) {
       makeGuess(num);
-      setGuess('');
+      setGuess("");
     }
   };
 
   return (
     <div className="page-container">
       <nav className="nav">
-        <Link to="/" className="nav-link">← Home</Link>
-        <Link to="/owner" className="nav-link">Owner View</Link>
+        <Link to="/" className="nav-link">
+          ← Home
+        </Link>
+        <Link to="/owner" className="nav-link">
+          Owner View
+        </Link>
       </nav>
 
       <div className="content">
@@ -44,7 +54,7 @@ const Player = () => {
                 <span className="reward-label">Reward Pool</span>
                 <span className="reward-amount">{reward} ETH</span>
               </div>
-              
+
               <form onSubmit={handleSubmit} className="guess-form">
                 <div className="form-group">
                   <label htmlFor="guess">Your Guess</label>
@@ -63,10 +73,19 @@ const Player = () => {
                 </button>
               </form>
 
-              {guessResult && guessResult !== 'correct' && (
+              {guessResult && guessResult !== "correct" && (
                 <div className={`guess-feedback ${guessResult}`}>
-                  {guessResult === 'too-high' && '⬇️ Too high, try a lower number'}
-                  {guessResult === 'too-low' && '⬆️ Too low, try a higher number'}
+                  {guessResult === "incorrect, try again" ? (
+                    <>
+                      <span className="feedback-icon">❌</span> Incorrect guess,
+                      try again!
+                    </>
+                  ) : (
+                    <>
+                      <span className="feedback-icon">✅</span> Correct! You
+                      won!
+                    </>
+                  )}
                 </div>
               )}
             </>

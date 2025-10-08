@@ -1,22 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGame } from '../context/GameContext';
 import { Link } from 'react-router-dom';
 import './Owner.css';
+import { use } from 'react';
 
 const Owner = () => {
-  const { gameActive, winner, reward, startGame } = useGame();
+  const { gameActive, winner, reward, startGame, initializeContract } = useGame();
   const [secretNumber, setSecretNumber] = useState('');
   const [rewardAmount, setRewardAmount] = useState('');
 
+  useEffect(() => {
+    initializeContract();
+  }, []);
+
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const num = parseInt(secretNumber);
-    const rew = parseFloat(rewardAmount);
-    
-    if (!isNaN(num) && !isNaN(rew) && num > 0 && rew > 0) {
-      startGame(num, rew);
-      setSecretNumber('');
-      setRewardAmount('');
+    e.preventDefault();    
+
+    if (!isNaN(secretNumber) && !isNaN(rewardAmount) && secretNumber > 0 && rewardAmount > 0) {
+      startGame(rewardAmount, secretNumber);
     }
   };
 
