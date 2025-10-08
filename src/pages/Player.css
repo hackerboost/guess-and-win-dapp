@@ -1,0 +1,84 @@
+.reward-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  background: hsl(var(--background));
+  border-radius: 8px;
+  margin-bottom: 32px;
+}
+
+.reward-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: hsl(var(--foreground));
+  opacity: 0.6;
+}
+
+.reward-amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: hsl(var(--primary));
+}
+
+.guess-form {
+  margin-bottom: 20px;
+}
+
+.no-game {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.no-game-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.no-game h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin-bottom: 12px;
+}
+
+.no-game p {
+  font-size: 16px;
+  color: hsl(var(--foreground));
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.no-game .hint {
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.guess-feedback {
+  padding: 16px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.guess-feedback.too-high,
+.guess-feedback.too-low {
+  background: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary));
+}
